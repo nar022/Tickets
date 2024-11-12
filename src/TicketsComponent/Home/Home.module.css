@@ -1,0 +1,151 @@
+/* General Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Center content horizontally */
+  height: 100vh;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px 0; /* Padding adjusted to remove extra space */
+}
+
+/* Header Styling (Logo) */
+.header {
+  display: flex;
+  justify-content: center; /* Center logo horizontally */
+  width: 100%;
+  margin-bottom: 20px; /* Space below the logo */
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Tabs Styling */
+.tabs {
+  width: 100%;
+  margin-top: 0; /* No margin between the logo and tabs */
+}
+
+.ant-tabs {
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-tabs-tab {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ant-tabs-tab-active {
+  color: #007bff;
+}
+
+.ant-tabs-nav {
+  margin: 0; /* Remove any margin from the tab bar */
+}
+
+/* Ticket Options Menu Styling */
+.ticketMenu {
+  display: flex;
+  justify-content: center; /* Center the menu horizontally */
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 0;
+}
+
+.ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.ant-menu-item {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.ant-menu-item-selected {
+  color: #007bff; /* Highlight the selected option */
+}
+
+.ant-menu-item:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+/* Sub-tabs Styling for "Closed" Tab */
+.subTabs {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%; /* Position below the menu */
+  left: 50%; /* Adjust to align next to the "Closed" tab */
+  transform: translateX(-50%); /* Center the sub-tabs */
+  background-color: #ffffff;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 160px; /* Compact width */
+  z-index: 100;
+  visibility: hidden; /* Hide by default */
+}
+
+.subTabItem {
+  padding: 8px 12px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 4px;
+  text-decoration: none; /* Remove underline */
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.subTabItem:hover {
+  background-color: #e6f7ff;
+}
+
+.ticketMenu .ant-menu-item:hover + .subTabs,
+.subTabs:hover {
+  visibility: visible; /* Show sub-tabs when the "Closed" tab is hovered */
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px 0; /* Less padding for smaller screens */
+  }
+
+  .header {
+    margin-bottom: 10px; /* Less space between header and tabs */
+  }
+
+  .tabs {
+    margin-top: 10px; /* Tighten the spacing */
+  }
+
+  .ticketMenu {
+    flex-direction: column;
+    align-items: center; /* Stack menu items vertically on small screens */
+  }
+
+  .subTabs {
+    width: 100%;
+    left: 0;
+    transform: translateX(0); /* Align with the left side */
+  }
+
+  .subTabItem {
+    padding: 10px;
+  }
+}
