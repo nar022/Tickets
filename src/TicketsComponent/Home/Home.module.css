@@ -7,10 +7,10 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the start (left) */
-  padding: 20px;
+  align-items: flex-start; /* Align items to the left */
+  padding: 10px;
   color: #333;
-  font-family: "Arial", sans-serif; /* Use a flat, clean font */
+  font-family: "Arial", sans-serif;
 }
 
 /* Header section for logo */
@@ -18,193 +18,127 @@
   display: flex;
   justify-content: flex-start; /* Align logo to the left */
   width: 100%;
-  padding-top: 10px; /* Adjust as needed */
-  margin-bottom: 0; /* Minimize space below the header */
+  padding-top: 10px;
+  padding-left: 10px; /* Add padding to the left */
+  margin-bottom: 10px;
 }
 
 .logo {
-  max-width: 200px; /* Maintain the size */
-  border-radius: 8px; /* Rounded corners */
-  margin-top: -5px; /* Adjust upwards if needed */
-  margin-bottom: 0; /* Remove extra space below the logo */
+  max-width: 200px; /* Adjust logo size */
+  border-radius: 8px;
+  margin: 0;
 }
 
 /* Tabs styling */
 .tabs {
   width: 100%;
-  margin-top: 0; /* Remove any space between the logo and tabs */
+  margin: 10px 0;
 }
 
 .antTabs {
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Darken the background for better contrast */
-  border-radius: 8px; /* Rounded corners for flat look */
-  padding: 10px 20px; /* Reduced padding for less space */
-  border: 1px solid #ddd; /* Thin border for a cleaner look */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 5px;
 }
 
 .ant-tabs-tab {
-  font-size: 16px;
-  font-weight: bold; /* Make tab text bold */
-  padding: 10px 20px;
-  color: #ffffff; /* White color for text */
-  border: none; /* Remove any borders around tabs */
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  color: #ffffff;
+  border: none;
 }
 
 .ant-tabs-tab-active {
-  color: #007bff; /* Active tab color */
-  font-weight: 600; /* Bold active tab */
+  color: #007bff;
+  font-weight: 600;
 }
 
-.ant-tabs-nav {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* Styling for the menu items */
-.ant-menu-horizontal {
-  background-color: rgba(0, 0, 0, 0.5); /* Darker background for the menu */
+/* Tab content */
+.tab-content {
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #ffffff;
   border-radius: 8px;
-  padding: 0;
-  margin-top: 10px; /* Reduced margin-top for less space between menu and tabs */
+}
+
+/* Styling for the menu */
+.ant-menu-horizontal {
   display: flex;
-  justify-content: space-around; /* Spread out the menu items evenly */
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 5px 0;
 }
 
 .ant-menu-item {
-  font-size: 16px; /* Slightly larger text for better visibility */
-  font-weight: bold; /* Make the menu items bold */
-  padding: 12px 25px; /* Adjust padding to make the menu items larger and more clickable */
-  color: white; /* White color for text */
-  border: none; /* Remove any borders */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 15px;
+  color: white;
+  transition: all 0.3s ease;
   text-align: center;
 }
 
 .ant-menu-item:hover {
-  background-color: #007bff; /* Blue background on hover */
-  color: #ffffff; /* Ensure text stays white */
-  border-radius: 8px; /* Rounded corners on hover */
-}
-
-.ant-menu-item-selected {
-  background-color: #0056b3; /* Darker blue when selected */
-  color: #ffffff; /* White text for selected item */
-  font-weight: bold;
-}
-
-/* Sub-menu styling */
-.subMenu {
-  display: flex;
-  flex-direction: column; /* Display vertically */
-  background-color: #ffffff;
+  background-color: #007bff;
+  color: #ffffff;
   border-radius: 8px;
-  padding: 10px;
-  margin-top: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: absolute; /* Position absolutely relative to its parent */
-  z-index: 10; /* Ensure it's on top */
-  max-width: 220px;
 }
 
-.subMenuItem {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 10px;
+.ant-dropdown-menu {
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.ant-dropdown-menu-item {
+  padding: 8px 15px;
+  font-size: 12px;
   color: #007bff;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-  margin-bottom: 8px;
 }
 
-.subMenuItem:hover {
-  background-color: #f5f5f5; /* Light hover effect */
+.ant-dropdown-menu-item:hover {
+  background-color: #f5f5f5;
   color: #0056b3;
 }
 
-.subMenuItem:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 4px;
-}
-
-/* Accessibility focus and hover states */
-.ant-tabs-tab:focus,
-.ant-menu-item:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 4px;
+/* Iframe */
+.iframe {
+  width: 100%;
+  height: calc(100vh - 250px);
+  border: none;
+  margin-top: 10px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-
-  .logo {
-    max-width: 180px;
-  }
-
-  .tabs {
-    width: 100%;
-  }
-
-  .antTabs {
-    font-size: 14px;
-    padding: 15px;
-  }
-
-  .ticketMenu {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .ant-menu-item {
-    font-size: 14px;
-    padding: 8px 15px;
-  }
-
-  .subMenu {
-    max-width: 200px;
-  }
-
-  .subMenuItem {
-    font-size: 16px;
-    padding: 12px;
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 5px;
-  }
-
-  .logo {
-    max-width: 180px;
-  }
-
   .tabs {
     font-size: 12px;
   }
 
+  .ant-menu-horizontal {
+    flex-direction: column;
+  }
+
   .ant-menu-item {
-    font-size: 13px;
-    padding: 7px 12px;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
   }
 
-  .subMenu {
-    max-width: 180px;
+  .iframe {
+    height: calc(100vh - 350px);
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    font-size: 10px;
   }
 
-  .subMenuItem {
-    font-size: 14px;
-    padding: 10px;
+  .ant-menu-item {
+    font-size: 12px;
   }
 }

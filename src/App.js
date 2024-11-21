@@ -6,18 +6,31 @@ import Yesterday from "./TicketsComponent/Closed/Yesterday";
 import ThisWeek from "./TicketsComponent/Closed/ThisWeek";
 import ThisMonth from "./TicketsComponent/Closed/ThisMonth";
 import ThisQuarter from "./TicketsComponent/Closed/ThisQuarter";
+import TodayDetails from "./TicketsComponent/Closed/TodayDetails";
+import YesterdayDetails from "./TicketsComponent/Closed/YesterdayDetails";
+import ThisWeekDetails from "./TicketsComponent/Closed/ThisWeekDetails";
+import ThisMonthDetails from "./TicketsComponent/Closed/ThisMonthDetails";
+import ThisQuarterDetails from "./TicketsComponent/Closed/ThisQuarterDetails";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* Adjusted paths to match the 'Link' paths in Home.js */}
+        {}
         <Route path="/tickets/closed/today" element={<Today />} />
         <Route path="/tickets/closed/yesterday" element={<Yesterday />} />
         <Route path="/tickets/closed/this-week" element={<ThisWeek />} />
         <Route path="/tickets/closed/this-month" element={<ThisMonth />} />
         <Route path="/tickets/closed/this-quarter" element={<ThisQuarter />} />
+        <Route path="/today-details/:id" element={<TodayDetails />} />
+        <Route path="/yesterday-details/:id" element={<YesterdayDetails />} />
+        <Route path="/thisweek-details/:id" element={<ThisWeekDetails />} />
+        <Route path="/thismonth-details/:id" element={<ThisMonthDetails />} />
+        <Route
+          path="/thisquarter-details/:id"
+          element={<ThisQuarterDetails />}
+        />
       </Routes>
     </Router>
   );

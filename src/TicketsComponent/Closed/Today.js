@@ -7,6 +7,7 @@ import {
   LinkOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons"; // Import Ant Design icons
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import styles from "./Today.module.css";
 
 const dataSource = [
@@ -146,7 +147,14 @@ const columns = [
     sorter: (a, b) => new Date(a.dateClosed) - new Date(b.dateClosed),
     render: (text) => <span>{new Date(text).toLocaleDateString()}</span>, // Format the date
   },
-  { title: "Subject", dataIndex: "subject", key: "subject" },
+  {
+    title: "Subject",
+    dataIndex: "subject",
+    key: "subject",
+    render: (text, record) => (
+      <Link to={`/today-details/${record.key}`}>{text}</Link> // Create a link to TodayDetails.js with the ticket key
+    ),
+  },
   { title: "From", dataIndex: "from", key: "from" },
   { title: "Closed By", dataIndex: "closedBy", key: "closedBy" },
 ];
