@@ -8,143 +8,128 @@ import {
   ShareAltOutlined,
 } from "@ant-design/icons"; // Import Ant Design icons
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import styles from "./Answered.module.css";
+import styles from "./ThisYear.module.css";
 
 const dataSource = [
   {
     key: "1",
     ticket: "TCKT-001",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Login Issue",
     from: "John Doe",
-    priority: "High",
-    assignedTo: "Admin A",
+    closedBy: "Admin A",
   },
   {
     key: "2",
     ticket: "TCKT-002",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Password Reset",
     from: "Jane Smith",
-    priority: "Medium",
-    assignedTo: "Admin B",
+    closedBy: "Admin B",
   },
   {
     key: "3",
     ticket: "TCKT-003",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "System Outage",
     from: "Michael Brown",
-    priority: "Critical",
-    assignedTo: "Admin C",
+    closedBy: "Admin C",
   },
   {
     key: "4",
     ticket: "TCKT-004",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Account Lockout",
     from: "Emily Davis",
-    priority: "Low",
-    assignedTo: "Admin D",
+    closedBy: "Admin D",
   },
   {
     key: "5",
     ticket: "TCKT-005",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Email Not Received",
     from: "Chris Johnson",
-    priority: "Medium",
-    assignedTo: "Admin E",
+    closedBy: "Admin E",
   },
   {
     key: "6",
     ticket: "TCKT-006",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Network Error",
     from: "Sarah White",
-    priority: "High",
-    assignedTo: "Admin F",
+    closedBy: "Admin F",
   },
   {
     key: "7",
     ticket: "TCKT-007",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Access Request",
     from: "William Martinez",
-    priority: "Low",
-    assignedTo: "Admin G",
+    closedBy: "Admin G",
   },
   {
     key: "8",
     ticket: "TCKT-008",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Page Not Loading",
     from: "Jessica Wilson",
-    priority: "Medium",
-    assignedTo: "Admin H",
+    closedBy: "Admin H",
   },
   {
     key: "9",
     ticket: "TCKT-009",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Server Downtime",
     from: "David Thomas",
-    priority: "Critical",
-    assignedTo: "Admin I",
+    closedBy: "Admin I",
   },
   {
     key: "10",
     ticket: "TCKT-010",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "VPN Connectivity",
     from: "Olivia Taylor",
-    priority: "High",
-    assignedTo: "Admin J",
+    closedBy: "Admin J",
   },
   {
     key: "11",
     ticket: "TCKT-011",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Slow Performance",
     from: "Daniel Harris",
-    priority: "Medium",
-    assignedTo: "Admin K",
+    closedBy: "Admin K",
   },
   {
     key: "12",
     ticket: "TCKT-012",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "File Upload Error",
     from: "Megan Lee",
-    priority: "Low",
-    assignedTo: "Admin L",
+    closedBy: "Admin L",
   },
   {
     key: "13",
     ticket: "TCKT-013",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Data Retrieval Issue",
     from: "Paul King",
-    priority: "High",
-    assignedTo: "Admin M",
+    closedBy: "Admin M",
   },
   {
     key: "14",
     ticket: "TCKT-014",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "Form Submission Error",
     from: "Anna Lewis",
-    priority: "Critical",
-    assignedTo: "Admin N",
+    closedBy: "Admin N",
   },
   {
     key: "15",
     ticket: "TCKT-015",
-    lastUpdated: "2024-11-01",
+    dateClosed: "2024-11-01",
     subject: "User Permissions",
     from: "James Scott",
-    priority: "Medium",
-    assignedTo: "Admin O",
+    closedBy: "Admin O",
   },
 ];
 
@@ -156,10 +141,10 @@ const columns = [
     sorter: (a, b) => a.ticket.localeCompare(b.ticket),
   },
   {
-    title: "Last Updated",
-    dataIndex: "lastUpdated",
-    key: "lastUpdated",
-    sorter: (a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated),
+    title: "Date Closed",
+    dataIndex: "dateClosed",
+    key: "dateClosed",
+    sorter: (a, b) => new Date(a.dateClosed) - new Date(b.dateClosed),
     render: (text) => <span>{new Date(text).toLocaleDateString()}</span>, // Format the date
   },
   {
@@ -167,15 +152,14 @@ const columns = [
     dataIndex: "subject",
     key: "subject",
     render: (text, record) => (
-      <Link to={`/answered-details/${record.key}`}>{text}</Link>
+      <Link to={`/thisyear-details/${record.key}`}>{text}</Link> // Create a link to TodayDetails.js with the ticket key
     ),
   },
   { title: "From", dataIndex: "from", key: "from" },
-  { title: "Priority", dataIndex: "priority", key: "priority" },
-  { title: "Assigned To", dataIndex: "assignedTo", key: "assignedTo" },
+  { title: "Closed By", dataIndex: "closedBy", key: "closedBy" },
 ];
 
-const Answered = () => {
+const ThisYear = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (value) => {
@@ -187,8 +171,7 @@ const Answered = () => {
       ticket.ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ticket.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase())
+      ticket.closedBy.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -209,7 +192,7 @@ const Answered = () => {
       </div>
 
       <div className={styles.headerContainer}>
-        <h2 className={styles.header}>Answered</h2>
+        <h2 className={styles.header}>This Year</h2>
         <div className={styles.buttonGroup}>
           <Button
             className={styles.actionButton}
@@ -262,4 +245,4 @@ const Answered = () => {
   );
 };
 
-export default Answered;
+export default ThisYear;

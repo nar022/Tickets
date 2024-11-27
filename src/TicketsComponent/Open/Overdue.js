@@ -10,126 +10,142 @@ import {
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import styles from "./Overdue.module.css";
 
+// Limit the dataSource to 15 rows
 const dataSource = [
   {
     key: "1",
     ticket: "TCKT-001",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Login Issue",
     from: "John Doe",
-    closedBy: "Admin A",
+    priority: "High",
+    assignedTo: "Admin A",
   },
   {
     key: "2",
     ticket: "TCKT-002",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Password Reset",
     from: "Jane Smith",
-    closedBy: "Admin B",
+    priority: "Medium",
+    assignedTo: "Admin B",
   },
   {
     key: "3",
     ticket: "TCKT-003",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "System Outage",
     from: "Michael Brown",
-    closedBy: "Admin C",
+    priority: "Low",
+    assignedTo: "Admin C",
   },
   {
     key: "4",
     ticket: "TCKT-004",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Account Lockout",
     from: "Emily Davis",
-    closedBy: "Admin D",
+    priority: "High",
+    assignedTo: "Admin D",
   },
   {
     key: "5",
     ticket: "TCKT-005",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Email Not Received",
     from: "Chris Johnson",
-    closedBy: "Admin E",
+    priority: "Low",
+    assignedTo: "Admin E",
   },
   {
     key: "6",
     ticket: "TCKT-006",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Network Error",
     from: "Sarah White",
-    closedBy: "Admin F",
+    priority: "Medium",
+    assignedTo: "Admin F",
   },
   {
     key: "7",
     ticket: "TCKT-007",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Access Request",
     from: "William Martinez",
-    closedBy: "Admin G",
+    priority: "High",
+    assignedTo: "Admin G",
   },
   {
     key: "8",
     ticket: "TCKT-008",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Page Not Loading",
     from: "Jessica Wilson",
-    closedBy: "Admin H",
+    priority: "Medium",
+    assignedTo: "Admin H",
   },
   {
     key: "9",
     ticket: "TCKT-009",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Server Downtime",
     from: "David Thomas",
-    closedBy: "Admin I",
+    priority: "High",
+    assignedTo: "Admin I",
   },
   {
     key: "10",
     ticket: "TCKT-010",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "VPN Connectivity",
     from: "Olivia Taylor",
-    closedBy: "Admin J",
+    priority: "Low",
+    assignedTo: "Admin J",
   },
   {
     key: "11",
     ticket: "TCKT-011",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Slow Performance",
     from: "Daniel Harris",
-    closedBy: "Admin K",
+    priority: "Medium",
+    assignedTo: "Admin K",
   },
   {
     key: "12",
     ticket: "TCKT-012",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "File Upload Error",
     from: "Megan Lee",
-    closedBy: "Admin L",
+    priority: "Low",
+    assignedTo: "Admin L",
   },
   {
     key: "13",
     ticket: "TCKT-013",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Data Retrieval Issue",
     from: "Paul King",
-    closedBy: "Admin M",
+    priority: "Medium",
+    assignedTo: "Admin M",
   },
   {
     key: "14",
     ticket: "TCKT-014",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "Form Submission Error",
     from: "Anna Lewis",
-    closedBy: "Admin N",
+    priority: "High",
+    assignedTo: "Admin N",
   },
   {
     key: "15",
     ticket: "TCKT-015",
-    dateClosed: "2024-11-01",
+    lastUpdated: "2024-11-01",
     subject: "User Permissions",
     from: "James Scott",
-    closedBy: "Admin O",
+    priority: "Medium",
+    assignedTo: "Admin O",
   },
 ];
 
@@ -141,10 +157,10 @@ const columns = [
     sorter: (a, b) => a.ticket.localeCompare(b.ticket),
   },
   {
-    title: "Date Closed",
-    dataIndex: "dateClosed",
-    key: "dateClosed",
-    sorter: (a, b) => new Date(a.dateClosed) - new Date(b.dateClosed),
+    title: "Last Updated",
+    dataIndex: "lastUpdated",
+    key: "lastUpdated",
+    sorter: (a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated),
     render: (text) => <span>{new Date(text).toLocaleDateString()}</span>, // Format the date
   },
   {
@@ -156,7 +172,8 @@ const columns = [
     ),
   },
   { title: "From", dataIndex: "from", key: "from" },
-  { title: "Closed By", dataIndex: "closedBy", key: "closedBy" },
+  { title: "Priority", dataIndex: "priority", key: "priority" },
+  { title: "Assigned To", dataIndex: "assignedTo", key: "assignedTo" },
 ];
 
 const Overdue = () => {
@@ -171,7 +188,8 @@ const Overdue = () => {
       ticket.ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ticket.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.closedBy.toLowerCase().includes(searchTerm.toLowerCase())
+      ticket.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

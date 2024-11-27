@@ -140,6 +140,17 @@ const Home = () => {
         </Link>
       ),
     },
+    {
+      key: "this-year",
+      label: (
+        <Link
+          to="/tickets/closed/this-year"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/this-year")}
+        >
+          This Year
+        </Link>
+      ),
+    },
   ];
 
   const handleTicketOptionClick = (key) => {
