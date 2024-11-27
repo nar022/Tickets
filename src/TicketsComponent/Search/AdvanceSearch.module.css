@@ -1,0 +1,42 @@
+.modal {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.modalBody {
+  padding: 20px;
+}
+
+.searchField,
+.checkboxGroup,
+.inputField,
+.dropdown {
+  margin-bottom: 16px;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Adjust spacing between checkboxes */
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 16px; /* Space between buttons */
+  justify-content: flex-start;
+}
+
+.buttonsContainer .ant-btn {
+  margin-right: 8px; /* Reduce the margin between buttons */
+}
+
+/* Adjust the space between checkboxes and the footer */
+.checkboxGroup + .inputField {
+  margin-top: 16px;
+}

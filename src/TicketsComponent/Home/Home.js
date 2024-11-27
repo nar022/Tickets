@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Tabs, Menu, Dropdown, Button } from "antd";
+import { Tabs, Menu, Dropdown, Button, Modal } from "antd";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons"; // Import the Plus icon
 import styles from "./Home.module.css";
 import logo from "../../assets/intellicare_logo_white.png";
+import PersonalSearch from "../../TicketsComponent/Search/AdvanceSearch";
 
 const { TabPane } = Tabs;
 const { SubMenu } = Menu; // Import SubMenu from Menu
@@ -12,6 +13,31 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState("1");
   const [activeTicketOption, setActiveTicketOption] = useState("Open");
   const [iframeSrc, setIframeSrc] = useState(""); // To dynamically load content in iframe
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
+
+  // Move showModal and handleCancel here to ensure they are defined before use
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleClose = () => {
+    setIsModalVisible(false); // Close the modal
+  };
+
+  const handleSearch = (searchQuery) => {
+    // Add your search logic here
+    console.log(searchQuery);
+  };
+
+  const handleSave = () => {
+    // Add your save logic here
+    console.log("Saved");
+    setIsModalVisible(false); // Close the modal after saving
+  };
 
   const ticketMenuItems = [
     { key: "Open", label: "Open" },
@@ -95,12 +121,13 @@ const Home = () => {
   // Define the items for the "Search" dropdown menu
   const searchDropdownMenuItems = [
     {
-      key: "AddPersonalSearch", // New option for Add Personal Search
+      key: "AddPersonalSearch",
       label: (
         <>
           <PlusOutlined /> Add Personal Search
         </>
       ),
+      onClick: showModal, // Show the modal when this item is clicked
     },
   ];
 
@@ -271,6 +298,27 @@ const Home = () => {
               )
             )}
           </Menu>
+
+          {/* Modal */}
+
+          <Modal
+            title="Advanced Ticket Search"
+            visible={isModalVisible}
+            onCancel={handleClose}
+            footer={null}
+            width={800}
+            className={styles.modal}
+          >
+            {/* Force re-render based on the visibility of the modal */}
+            <PersonalSearch
+              key={isModalVisible ? "visible" : "hidden"} // Forces re-render when the modal visibility changes
+              show={isModalVisible}
+              onClose={handleClose}
+              onSearch={handleSearch}
+              onSave={handleSave}
+              onCancel={handleCancel}
+            />
+          </Modal>
 
           {/* Display iframe based on selected content */}
           {iframeSrc && (
