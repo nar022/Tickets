@@ -22,9 +22,40 @@ const Home = () => {
   ];
 
   const openSubMenuItems = [
-    { key: "Open", label: "Open" },
-    { key: "Answered", label: "Answered" },
-    { key: "Overdue", label: "Overdue" },
+    {
+      key: "Open",
+      label: (
+        <Link
+          to="/tickets/open"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/open")}
+        >
+          Open
+        </Link>
+      ),
+    },
+
+    {
+      key: "Answered",
+      label: (
+        <Link
+          to="/tickets/anwsered"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/answered")}
+        >
+          Answered
+        </Link>
+      ),
+    },
+    {
+      key: "Overdue",
+      label: (
+        <Link
+          to="/tickets/overdue"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/overdue")}
+        >
+          Overdue
+        </Link>
+      ),
+    },
   ];
 
   const myTicketsSubMenuItems = [
@@ -136,9 +167,9 @@ const Home = () => {
         tabBarStyle={{ marginBottom: 20 }}
         className={styles.tabs}
       >
-        <TabPane tab="Dashboard" key="1" disabled />
-        <TabPane tab="Users" key="2" disabled />
-        <TabPane tab="Tasks" key="3" disabled />
+        <TabPane tab="Dashboard" key="1" />
+        <TabPane tab="Users" key="2" />
+        <TabPane tab="Tasks" key="3" />
         <TabPane tab="Tickets" key="4">
           {/* Horizontal Ticket Options */}
           <Menu
@@ -218,7 +249,7 @@ const Home = () => {
             />
           )}
         </TabPane>
-        <TabPane tab="Knowledgebase" key="5" disabled />
+        <TabPane tab="Knowledgebase" key="5" />
       </Tabs>
     </div>
   );

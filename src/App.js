@@ -11,6 +11,12 @@ import YesterdayDetails from "./TicketsComponent/Closed/YesterdayDetails";
 import ThisWeekDetails from "./TicketsComponent/Closed/ThisWeekDetails";
 import ThisMonthDetails from "./TicketsComponent/Closed/ThisMonthDetails";
 import ThisQuarterDetails from "./TicketsComponent/Closed/ThisQuarterDetails";
+import Open from "./TicketsComponent/Open/Open";
+import OpenDetails from "./TicketsComponent/Open/OpenDetails";
+import Answered from "./TicketsComponent/Open/Answered";
+import AnsweredDetails from "./TicketsComponent/Open/AnsweredDetails";
+import Overdue from "./TicketsComponent/Open/Overdue";
+import OverdueDetails from "./TicketsComponent/Open/OverdueDetails";
 
 function App() {
   return (
@@ -31,6 +37,12 @@ function App() {
           path="/thisquarter-details/:id"
           element={<ThisQuarterDetails />}
         />
+        <Route path="/tickets/open" element={<Open />} />
+        <Route path="/open-details/:id" element={<OpenDetails />} />
+        <Route path="/tickets/answered" element={<Answered />} />
+        <Route path="/answered-details/:id" element={<AnsweredDetails />} />
+        <Route path="/tickets/overdue" element={<Overdue />} />
+        <Route path="/overdue-details/:id" element={<OverdueDetails />} />
       </Routes>
     </Router>
   );

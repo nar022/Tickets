@@ -73,21 +73,31 @@
   padding: 5px 0;
 }
 
-.ant-menu-item {
+.ant-menu-item,
+.ant-submenu-title,
+.ant-dropdown-menu-item {
   font-size: 14px;
   font-weight: bold;
-  padding: 8px 15px;
-  color: white;
+  color: black !important; /* Set color to black for all menu items */
   transition: all 0.3s ease;
   text-align: center;
 }
 
-.ant-menu-item:hover {
+.ant-menu-item:hover,
+.ant-submenu-title:hover,
+.ant-dropdown-menu-item:hover {
   background-color: #007bff;
-  color: #ffffff;
+  color: white;
   border-radius: 8px;
 }
 
+/* Ensure the active item has black font */
+.ant-menu-item-selected,
+.ant-submenu-title-selected {
+  color: black !important;
+}
+
+/* Dropdown menu items */
 .ant-dropdown-menu {
   border-radius: 8px;
   padding: 5px;
