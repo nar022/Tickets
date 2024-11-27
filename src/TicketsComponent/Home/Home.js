@@ -59,8 +59,29 @@ const Home = () => {
   ];
 
   const myTicketsSubMenuItems = [
-    { key: "AssignedToMe", label: "Assigned To Me" },
-    { key: "AssignedToTeams", label: "Assigned To Teams" },
+    {
+      key: "AssignedToMe",
+      label: (
+        <Link
+          to="/tickets/assignedtome"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/assignedtome")}
+        >
+          Assigned To Me
+        </Link>
+      ),
+    },
+    {
+      key: "AssignedToTeam",
+      label: (
+        <Link
+          to="/tickets/assignedtoteam"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/assignedtoteam")}
+        >
+          Assigned To Team
+        </Link>
+      ),
+    },
+
     {
       key: "AddPersonQueue",
       label: (

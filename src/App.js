@@ -19,6 +19,10 @@ import Answered from "./TicketsComponent/Open/Answered";
 import AnsweredDetails from "./TicketsComponent/Open/AnsweredDetails";
 import Overdue from "./TicketsComponent/Open/Overdue";
 import OverdueDetails from "./TicketsComponent/Open/OverdueDetails";
+import AssignedToMe from "./TicketsComponent/My Ticket/AssignedToMe";
+import AssignedToMeDetails from "./TicketsComponent/My Ticket/AssignedToMeDetails";
+import AssignedToTeam from "./TicketsComponent/My Ticket/AssignedToTeam";
+import AssignedToTeamDetails from "./TicketsComponent/My Ticket/AssignedToTeamDetails";
 
 function App() {
   return (
@@ -47,6 +51,16 @@ function App() {
         <Route path="/answered-details/:id" element={<AnsweredDetails />} />
         <Route path="/tickets/overdue" element={<Overdue />} />
         <Route path="/overdue-details/:id" element={<OverdueDetails />} />
+        <Route path="/tickets/assignedtome" element={<AssignedToMe />} />
+        <Route
+          path="/assignedtome-details/:id"
+          element={<AssignedToMeDetails />}
+        />
+        <Route path="/tickets/assignedtoteam" element={<AssignedToTeam />} />
+        <Route
+          path="/assignedtoteam-details/:id"
+          element={<AssignedToTeamDetails />}
+        />
       </Routes>
     </Router>
   );
