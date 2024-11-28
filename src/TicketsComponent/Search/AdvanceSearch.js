@@ -10,6 +10,7 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
   const [keywords, setKeywords] = useState("");
   const [selectedFields, setSelectedFields] = useState([]);
   const [selectedTab, setSelectedTab] = useState("criteria");
+  const [useStandardColumns, setUseStandardColumns] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(show);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
 
   const handleSearchChange = (value) => setSelectedSearch(value);
   const handleKeywordsChange = (event) => setKeywords(event.target.value);
-  const handleFieldChange = (value) => setSelectedFields(value);
+  const handleCheckboxChange = (e) => setUseStandardColumns(e.target.checked);
 
   const handleSearchClick = () => {
     if (!keywords.trim()) {
@@ -31,23 +32,13 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
     handleClose();
   };
 
-  const handleSaveClick = () => {
-    if (!keywords.trim()) {
-      alert("Please enter keywords to save.");
-      return;
-    }
-    if (onSave) {
-      onSave({ selectedSearch, keywords, selectedFields });
-    }
-    handleClose();
-  };
-
   const handleClose = () => {
     setIsModalVisible(false);
     setKeywords("");
     setSelectedFields([]);
     setSelectedSearch("My Searches");
     setSelectedTab("criteria");
+    setUseStandardColumns(false);
     if (onClose) onClose();
   };
 
@@ -57,7 +48,7 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
       visible={isModalVisible}
       onCancel={handleClose}
       footer={null}
-      width={800}
+      width="50%" /* Modal width is flexible */
       className={styles.modal}
     >
       <div className={styles.modalBody}>
@@ -102,31 +93,93 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
               <Checkbox className={styles.checkbox}>SLA Due Date</Checkbox>
               <Checkbox className={styles.checkbox}>Due Date</Checkbox>
             </div>
-          </TabPane>
-          <TabPane tab="Columns" key="columns">
-            <div className={styles.dropdown}>
-              <label>Add Other Fields</label>
+
+            <button type="button" className={styles.savedSearchLink}>
+              Saved Search
+            </button>
+
+            <div className={styles.searchField}>
               <Select
-                mode="multiple"
-                value={selectedFields}
-                onChange={handleFieldChange}
+                value={selectedSearch}
+                onChange={handleSearchChange}
                 style={{ width: "100%" }}
-                placeholder="Select additional fields"
               >
-                <Option value="field1">Field 1</Option>
-                <Option value="field2">Field 2</Option>
+                <Option value="My Searches">--Add Other Field--</Option>
+                <Option value="answered">Answered</Option>
+                <Option value="assigned">Assigned</Option>
+                <Option value="assignedstaff">Assigned Staff</Option>
+                <Option value="attachmentcount">Attachment Count</Option>
+                <Option value="closedate">Closed Date</Option>
               </Select>
             </div>
+          </TabPane>
+          <TabPane tab="Columns" key="columns">
+            <div className={styles.checkboxGroup}>
+              <Checkbox
+                className={styles.checkbox}
+                checked={useStandardColumns}
+                onChange={handleCheckboxChange}
+              >
+                Use standard columns
+              </Checkbox>
+            </div>
+            {/* Table for Captions and Labels */}
+            <table className={styles.columnsTable}>
+              <thead>
+                <tr>
+                  <th>Column Caption</th>
+                  <th>Column Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ticket #</td>
+                  <td>Ticket #</td>
+                </tr>
+                <tr>
+                  <td>Last Updated</td>
+                  <td>Last Updated</td>
+                </tr>
+                <tr>
+                  <td>Subject</td>
+                  <td>Subject</td>
+                </tr>
+                <tr>
+                  <td>From</td>
+                  <td>From</td>
+                </tr>
+                <tr>
+                  <td>Priority</td>
+                  <td>Priority</td>
+                </tr>
+                <tr>
+                  <td>Assigned To</td>
+                  <td>Assigned To</td>
+                </tr>
+                <tr>
+                  <td>User Name</td>
+                  <td>User Name</td>
+                </tr>
+                <tr>
+                  <td>Assignee</td>
+                  <td>Assignee</td>
+                </tr>
+              </tbody>
+            </table>
+
+            {/* Saved Search Link */}
+            <button type="button" className={styles.savedSearchLink}>
+              Saved Search
+            </button>
           </TabPane>
         </Tabs>
       </div>
       <div className={styles.modalFooter}>
         <div className={styles.buttonsContainer}>
-          <Button onClick={handleSaveClick} type="primary">
-            Save Search
+          <Button onClick={handleClose} type="primary">
+            Close
           </Button>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleSearchClick} type="default">
+          <Button onClick={handleSearchClick} type="primary">
             Search
           </Button>
         </div>

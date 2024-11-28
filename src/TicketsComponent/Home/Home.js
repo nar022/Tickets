@@ -306,7 +306,7 @@ const Home = () => {
             visible={isModalVisible}
             onCancel={handleClose}
             footer={null}
-            width={800}
+            width={500}
             className={styles.modal}
           >
             {/* Force re-render based on the visibility of the modal */}

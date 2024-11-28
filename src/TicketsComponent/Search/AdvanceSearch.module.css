@@ -40,3 +40,61 @@
 .checkboxGroup + .inputField {
   margin-top: 16px;
 }
+
+/* Table Styling - No Header and No Vertical Lines */
+.columnsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px; /* Add margin on top of the table for spacing */
+}
+
+.columnsTable th,
+.columnsTable td {
+  padding: 10px;
+  text-align: left;
+}
+
+.columnsTable th {
+  display: none; /* Remove table header */
+}
+
+.columnsTable td {
+  border-bottom: 1px solid #ddd; /* Add bottom border instead of vertical lines */
+  font-size: 14px;
+}
+
+.savedSearchLink {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 4px; /* Slightly smaller border radius */
+  padding: 6px 12px; /* Smaller padding for a more compact button */
+  font-size: 14px; /* Smaller font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  margin-bottom: 10px; /* Smaller bottom margin */
+}
+
+.savedSearchLink:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+.savedSearchLink:focus {
+  outline: none; /* Remove focus outline */
+}
+
+.savedSearchLink:active {
+  background-color: #004085; /* Even darker blue when clicked */
+  transform: scale(0.98); /* Slightly smaller effect when clicked */
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .columnsTable th,
+  .columnsTable td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
