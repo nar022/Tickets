@@ -136,7 +136,7 @@ const Home = () => {
             visible={isSearchModalVisible}
             onCancel={closeSearchModal}
             footer={null}
-            width={800}
+            width={500}
             className={styles.modal}
           >
             <PersonalSearch
