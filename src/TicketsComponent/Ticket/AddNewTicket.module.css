@@ -1,0 +1,43 @@
+.container {
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.infoText {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.userForm {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancelButton,
+.addButton {
+  width: 45%;
+}
+
+.divider {
+  margin: 20px 0;
+}
+
+.formHeading {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.ticketDetailsContainer {
+  margin-top: 30px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 20px;
+}
