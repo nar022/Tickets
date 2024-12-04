@@ -1,36 +1,47 @@
 import React, { useState } from "react";
 import { Tabs, Menu, Dropdown, Button, Modal } from "antd";
 import { Link } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons"; // Import the Plus icon
 import styles from "./Home.module.css";
 import logo from "../../assets/intellicare_logo_white.png";
 import PersonalSearch from "../../TicketsComponent/Search/AdvanceSearch";
 import AddNewTicket from "../../TicketsComponent/Ticket/AddNewTicket";
 
 const { TabPane } = Tabs;
-const { SubMenu } = Menu;
+const { SubMenu } = Menu; // Import SubMenu from Menu
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("1");
   const [activeTicketOption, setActiveTicketOption] = useState("Open");
-  const [iframeSrc, setIframeSrc] = useState("");
-  const [isSearchModalVisible, setIsSearchModalVisible] = useState(false); // Separate state for search modal
-  const [isNewTicketModalVisible, setIsNewTicketModalVisible] = useState(false); // Separate state for new ticket modal
+  const [iframeSrc, setIframeSrc] = useState(""); // To dynamically load content in iframe
+  const [isPersonalSearchModalVisible, setIsPersonalSearchModalVisible] = useState(false);
+  const [isNewTicketModalVisible, setIsNewTicketModalVisible] = useState(false);
 
-  const showSearchModal = () => setIsSearchModalVisible(true);
-  const closeSearchModal = () => setIsSearchModalVisible(false);
-
-  const showNewTicketModal = () => setIsNewTicketModalVisible(true);
-  const closeNewTicketModal = () => setIsNewTicketModalVisible(false);
-
+  const showPersonalSearchModal = () => {
+    setIsPersonalSearchModalVisible(true);
+  };
+  
+  const showNewTicketModal = () => {
+    setIsNewTicketModalVisible(true);
+  };
+  
+  const handlePersonalSearchClose = () => {
+    setIsPersonalSearchModalVisible(false);
+  };
+  
+  const handleNewTicketClose = () => {
+    setIsNewTicketModalVisible(false);
+  };
+  
   const handleSearch = (searchQuery) => {
-    console.log("Search Query:", searchQuery);
-    closeSearchModal();
+    // Add your search logic here
+    console.log(searchQuery);
   };
 
-  const handleSaveNewTicket = () => {
-    console.log("New Ticket Saved");
-    closeNewTicketModal();
+  const handleSave = () => {
+    // Add your save logic here
+    console.log("Saved");
+    setIsNewTicketModalVisible(false); // Close the modal after saving
   };
 
   const ticketMenuItems = [
@@ -41,7 +52,78 @@ const Home = () => {
     { key: "New Ticket", label: "New Ticket" },
   ];
 
-  // Ticket Dropdown Menus
+  const openSubMenuItems = [
+    {
+      key: "Open",
+      label: (
+        <Link
+          to="/tickets/open"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/open")}
+        >
+          Open
+        </Link>
+      ),
+    },
+
+    {
+      key: "Answered",
+      label: (
+        <Link
+          to="/tickets/anwsered"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/answered")}
+        >
+          Answered
+        </Link>
+      ),
+    },
+    {
+      key: "Overdue",
+      label: (
+        <Link
+          to="/tickets/overdue"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/overdue")}
+        >
+          Overdue
+        </Link>
+      ),
+    },
+  ];
+
+  const myTicketsSubMenuItems = [
+    {
+      key: "AssignedToMe",
+      label: (
+        <Link
+          to="/tickets/assignedtome"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/assignedtome")}
+        >
+          Assigned To Me
+        </Link>
+      ),
+    },
+    {
+      key: "AssignedToTeam",
+      label: (
+        <Link
+          to="/tickets/assignedtoteam"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/assignedtoteam")}
+        >
+          Assigned To Team
+        </Link>
+      ),
+    },
+
+    {
+      key: "AddPersonQueue",
+      label: (
+        <>
+          <PlusOutlined /> Add Personal Queue
+        </>
+      ),
+    },
+  ];
+
+  // Define the items for the "Search" dropdown menu
   const searchDropdownMenuItems = [
     {
       key: "AddPersonalSearch",
@@ -50,7 +132,7 @@ const Home = () => {
           <PlusOutlined /> Add Personal Search
         </>
       ),
-      onClick: showSearchModal,
+      onClick: showPersonalSearchModal,
     },
   ];
 
@@ -59,10 +141,80 @@ const Home = () => {
       key: "AddNewTicket",
       label: (
         <>
-          <PlusOutlined /> Create New Ticket
+          <PlusOutlined /> Add New Ticket
         </>
       ),
       onClick: showNewTicketModal,
+    },
+  ];
+
+  // Define the items for the closed tickets dropdown menu
+  const closedDropdownMenuItems = [
+    {
+      key: "today",
+      label: (
+        <Link
+          to="/tickets/closed/today"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/today")}
+        >
+          Today
+        </Link>
+      ),
+    },
+    {
+      key: "yesterday",
+      label: (
+        <Link
+          to="/tickets/closed/yesterday"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/yesterday")}
+        >
+          Yesterday
+        </Link>
+      ),
+    },
+    {
+      key: "this-week",
+      label: (
+        <Link
+          to="/tickets/closed/this-week"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/this-week")}
+        >
+          This Week
+        </Link>
+      ),
+    },
+    {
+      key: "this-month",
+      label: (
+        <Link
+          to="/tickets/closed/this-month"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/this-month")}
+        >
+          This Month
+        </Link>
+      ),
+    },
+    {
+      key: "this-quarter",
+      label: (
+        <Link
+          to="/tickets/closed/this-quarter"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/this-quarter")}
+        >
+          This Quarter
+        </Link>
+      ),
+    },
+    {
+      key: "this-year",
+      label: (
+        <Link
+          to="/tickets/closed/this-year"
+          onClick={(e) => handleSubMenuClick(e, "/tickets/closed/this-year")}
+        >
+          This Year
+        </Link>
+      ),
     },
   ];
 
@@ -74,8 +226,8 @@ const Home = () => {
   };
 
   const handleSubMenuClick = (event, path) => {
-    event.preventDefault();
-    setIframeSrc(path);
+    event.preventDefault(); // Prevent the default behavior of <Link>
+    setIframeSrc(path); // Set the iframe src to the selected path
   };
 
   return (
@@ -95,6 +247,7 @@ const Home = () => {
         <TabPane tab="Users" key="2" />
         <TabPane tab="Tasks" key="3" />
         <TabPane tab="Tickets" key="4">
+          {/* Horizontal Ticket Options */}
           <Menu
             mode="horizontal"
             selectedKeys={[activeTicketOption]}
@@ -102,7 +255,29 @@ const Home = () => {
             className={styles.ticketMenu}
           >
             {ticketMenuItems.map((item) =>
-              item.key === "Search" ? (
+              item.key === "Open" ? (
+                <SubMenu key={item.key} title={item.label}>
+                  {openSubMenuItems.map((subItem) => (
+                    <Menu.Item
+                      key={subItem.key}
+                      onClick={() => handleTicketOptionClick(subItem.key)}
+                    >
+                      {subItem.label}
+                    </Menu.Item>
+                  ))}
+                </SubMenu>
+              ) : item.key === "My Tickets" ? (
+                <SubMenu key={item.key} title={item.label}>
+                  {myTicketsSubMenuItems.map((subItem) => (
+                    <Menu.Item
+                      key={subItem.key}
+                      onClick={() => handleTicketOptionClick(subItem.key)}
+                    >
+                      {subItem.label}
+                    </Menu.Item>
+                  ))}
+                </SubMenu>
+              ) : item.key === "Search" ? (
                 <Menu.Item key={item.key}>
                   <Dropdown
                     overlay={<Menu items={searchDropdownMenuItems} />}
@@ -113,6 +288,17 @@ const Home = () => {
                     </Button>
                   </Dropdown>
                 </Menu.Item>
+              ) : item.key === "Closed" ? (
+                <Menu.Item key={item.key}>
+                  <Dropdown
+                    overlay={<Menu items={closedDropdownMenuItems} />}
+                    trigger={["click"]}
+                  >
+                    <Button type="link" onClick={(e) => e.preventDefault()}>
+                      Closed
+                    </Button>
+                  </Dropdown>
+                </Menu.Item>
               ) : item.key === "New Ticket" ? (
                 <Menu.Item key={item.key}>
                   <Dropdown
@@ -120,7 +306,7 @@ const Home = () => {
                     trigger={["click"]}
                   >
                     <Button type="link" onClick={(e) => e.preventDefault()}>
-                      New Ticket
+                     New Ticket
                     </Button>
                   </Dropdown>
                 </Menu.Item>
@@ -130,38 +316,41 @@ const Home = () => {
             )}
           </Menu>
 
-          {/* Search Modal */}
+          {/* Modal */}
           <Modal
-            title="Advanced Ticket Search"
-            visible={isSearchModalVisible}
-            onCancel={closeSearchModal}
-            footer={null}
-            width={500}
-            className={styles.modal}
-          >
-            <PersonalSearch
-              onClose={closeSearchModal}
-              onSearch={handleSearch}
-            />
-          </Modal>
+          title="Advanced Ticket Search"
+          visible={isPersonalSearchModalVisible}
+          onCancel={handlePersonalSearchClose}
+          footer={null}
+          width={800}
+          className={styles.modal}
+        >
+          <PersonalSearch
+            show={isPersonalSearchModalVisible}
+            onClose={handlePersonalSearchClose}
+            onSearch={handleSearch}
+            onSave={handleSave}
+          />
+        </Modal>
 
-        {/* New Ticket Modal */}
-          <Modal
-            title="Create New Ticket"
-            visible={isNewTicketModalVisible}
-            onCancel={closeNewTicketModal}
-            footer={null}
-            width={800}
-            className={styles.modal}
-          >
-            {/* Render only the form */}
-            <AddNewTicket
-              onClose={closeNewTicketModal}
-              onSave={handleSaveNewTicket}
-            />
-          </Modal>
+        <Modal
+          title="Create New Tickets"
+          visible={isNewTicketModalVisible}
+          onCancel={handleNewTicketClose}
+          footer={null}
+          width={800}
+          className={styles.modal}
+        >
+          <AddNewTicket
+            show={isNewTicketModalVisible}
+            onClose={handleNewTicketClose}
+            onSearch={handleSearch}
+            onSave={handleSave}
+          />
+        </Modal>
 
 
+          {/* Display iframe based on selected content */}
           {iframeSrc && (
             <iframe
               src={iframeSrc}
