@@ -80,18 +80,10 @@ const AdvancedSearchPopup = ({ show, onClose, onSearch, onSave }) => {
               />
             </div>
             <div className={styles.checkboxGroup}>
-              <Checkbox className={styles.checkbox}>
-                Ticket Status / Status Name
-              </Checkbox>
-              <Checkbox className={styles.checkbox}>
-                Ticket Status / State
-              </Checkbox>
-              <Checkbox className={styles.checkbox}>Department</Checkbox>
+              <Checkbox className={styles.checkbox}>Ticket Number</Checkbox>
+              <Checkbox className={styles.checkbox}>Employee</Checkbox>
               <Checkbox className={styles.checkbox}>Assignee</Checkbox>
-              <Checkbox className={styles.checkbox}>Help Topic</Checkbox>
-              <Checkbox className={styles.checkbox}>Create Date</Checkbox>
-              <Checkbox className={styles.checkbox}>SLA Due Date</Checkbox>
-              <Checkbox className={styles.checkbox}>Due Date</Checkbox>
+              <Checkbox className={styles.checkbox}>Email</Checkbox>
             </div>
 
             <button type="button" className={styles.savedSearchLink}>

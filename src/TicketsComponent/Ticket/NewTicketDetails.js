@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Input, Select, DatePicker, message } from "antd";
 import styles from "./NewTicketDetails.module.css";
 
@@ -8,9 +8,65 @@ const { TextArea } = Input;
 const NewTicketDetails = () => {
   const [form] = Form.useForm();
   const [isFormVisible, setIsFormVisible] = useState(false); // Toggle form visibility
+  const [userData, setUserData] = useState({ firstname: '', emailAdd: ''});
+  const [dataSourceUser, setdataSourceUser] = useState([]);
 
-  const handleFormSubmit = (values) => {
+  useEffect(() => {
+    getUsers();
+}, []);
+
+async function getUsers() {
+  try {
+    let getUsers = await fetch('https://localhost:7085/api/employees', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    let respJson = await getUsers.json();
+    console.log(respJson.data);
+    setdataSourceUser(respJson.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+  const handleFormSubmit = async (values) => {
     console.log("Ticket Details Submitted:", values);
+  
+    let Value = {
+      TicketRefNo: '',
+      Title: '',
+      Description: '',
+      EmployeeNo: '',
+      Email: userData.emailAdd,
+      Department: '',
+      SlaPlan: '',
+      Assignee: '',
+      HelpTopic: '',
+      TicketStatus: '',
+      PostedBy: userData.firstname,
+      DueDate: '',
+      Topic_Id: '',
+      UserNo: '',
+    };
+
+    try {
+      let postTicket = await fetch('https://localhost:7085/api/tickets', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({Value})
+      });
+
+      let respJson = await postTicket.json();
+      console.log(respJson);
+
+    } catch (error) {
+      console.log(error);
+    }
+
     message.success("Ticket created successfully!");
     setIsFormVisible(false); // Hide form after submission
   };
@@ -24,14 +80,16 @@ const NewTicketDetails = () => {
     setIsFormVisible(!isFormVisible); // Toggle form visibility
   };
 
+  const selectUser = (value, key) => {
+    const item = dataSourceUser.filter((user) => user.employeeNo === key);
+    console.log('item',item)
+    setUserData(item);
+    console.log(value, key); 
+  }; 
+
   return (
     <div className={styles.container}>
-      <Button type="primary" onClick={toggleFormVisibility}>
-        Add User
-      </Button>
-
-      {/* Conditionally render a div for the ticket form */}
-      {isFormVisible && (
+   
         <div className={styles.ticketFormWrapper}>
           <Form
             layout="vertical"
@@ -48,9 +106,12 @@ const NewTicketDetails = () => {
               name="user"
               rules={[{ required: true, message: "Please select a user!" }]}
             >
-              <Select placeholder="Select User">
-                <Option value="user1">User 1</Option>
-                <Option value="user2">User 2</Option>
+              <Select placeholder="Select User" onChange={(value, key) => selectUser(value, key)}>
+                {dataSourceUser.length > 0 && (
+                  <>
+                    {dataSourceUser.map((employee) => (<Option key={employee.employeeNo} value={employee.firstname}> {employee.firstname} </Option>))}
+                  </>
+                )}
               </Select>
             </Form.Item>
 
@@ -109,6 +170,7 @@ const NewTicketDetails = () => {
               name="assignTo"
               rules={[{ required: true, message: "Please select an assignee!" }]}
             >
+              
               <Select placeholder="Select an Agent or Team">
                 <Option value="agent1">Agent 1</Option>
                 <Option value="team1">Team 1</Option>
@@ -170,7 +232,6 @@ const NewTicketDetails = () => {
             </Form.Item>
           </Form>
         </div>
-      )}
     </div>
   );
 };

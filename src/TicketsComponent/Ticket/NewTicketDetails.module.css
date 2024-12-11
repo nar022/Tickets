@@ -1,100 +1,125 @@
 /* Container for the whole New Ticket component */
 .container {
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Submenu button styling */
-  .submenu {
-    margin-bottom: 20px;
-  }
-  
-  /* Dropdown menu and Add User button styling */
-  .ant-dropdown-menu {
-    width: 200px;
-  }
-  
-  .ant-btn-default {
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-  }
-  
-  /* Container for the form when it's visible */
-  .newTicketContainer {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Title styling inside the form */
-  .title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  
-  /* Form styling */
-  .ticketForm {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
-  /* Input and select components */
-  .ant-select, .ant-input, .ant-picker {
-    width: 100%;
-    border-radius: 4px;
-  }
-  
-  /* Button group styling */
-  .buttonGroup {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-  
-  .cancelButton {
-    background-color: #f0f0f0;
-    border-color: #d9d9d9;
-  }
-  
-  .openButton {
-    background-color: #1890ff;
-    color: white;
-    border-color: #1890ff;
-  }
-  
-  .resetButton {
-    background-color: #ff4d4f;
-    color: white;
-    border-color: #ff4d4f;
-  }
-  
-  /* Input textarea styling */
-  .ant-input-textarea {
-    border-radius: 4px;
-  }
-  
-  /* Padding and margin for form items */
-  .ant-form-item {
-    margin-bottom: 20px;
-  }
-  
-  /* Add some space between the Select options */
-  .ant-select-item-option {
-    padding: 10px;
-  }
-  
-  /* Ant Design error message style override */
-  .ant-form-item-explain-error {
-    color: #ff4d4f;
-  }
-  
-  /* Custom styling for datepicker */
-  .datePicker {
-    width: 100%;
-  }
-  
+  background-color: #f0f2f5; /* Light background for the page */
+  padding: 20px; /* Increased padding to make space for search field */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Submenu button styling */
+.submenu {
+  margin-bottom: 20px;
+}
+
+/* Dropdown menu and Add User button styling */
+.ant-dropdown-menu {
+  width: 200px;
+}
+
+.ant-btn-default {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+/* Container for the form when it's visible */
+.newTicketContainer {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling inside the form */
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #2e7d32; /* Green title text */
+}
+
+/* Form styling */
+.ticketForm {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Input and select components */
+.ant-select, .ant-input, .ant-picker {
+  width: 100%;
+  border-radius: 4px;
+}
+
+/* Focused input border */
+.ant-input:focus, .ant-picker-focused, .ant-select-focused {
+  border-color: #4caf50; /* Green border on focus */
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+/* Button group styling */
+.buttonGroup {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.cancelButton {
+  background-color: #f0f0f0;
+  border-color: #d9d9d9;
+}
+
+.openButton {
+  background-color: #2e7d32; /* Green open button */
+  color: white;
+  border-color: #2e7d32;
+}
+
+.openButton:hover {
+  background-color: #4caf50; /* Brighter green on hover */
+  border-color: #4caf50;
+}
+
+.resetButton {
+  background-color: #ff4d4f;
+  color: white;
+  border-color: #ff4d4f;
+}
+
+/* Input textarea styling */
+.ant-input-textarea {
+  border-radius: 4px;
+}
+
+/* Padding and margin for form items */
+.ant-form-item {
+  margin-bottom: 20px;
+}
+
+/* Add some space between the Select options */
+.ant-select-item-option {
+  padding: 10px;
+}
+
+/* Highlighted option */
+.ant-select-item-option-selected {
+  background-color: #e8f5e9; /* Light green highlight */
+}
+
+/* Ant Design error message style override */
+.ant-form-item-explain-error {
+  color: #ff4d4f;
+}
+
+/* Custom styling for datepicker */
+.datePicker {
+  width: 100%;
+}
+
+/* Success message styling */
+.ant-message-success {
+  background-color: #e8f5e9; /* Light green background */
+  border-left: 4px solid #4caf50; /* Green accent border */
+}

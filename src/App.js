@@ -24,6 +24,7 @@ import AssignedToMeDetails from "./TicketsComponent/My Ticket/AssignedToMeDetail
 import AssignedToTeam from "./TicketsComponent/My Ticket/AssignedToTeam";
 import AssignedToTeamDetails from "./TicketsComponent/My Ticket/AssignedToTeamDetails";
 import AddNewTicket from "./TicketsComponent/Ticket/AddNewTicket";
+import NewTicketDetails from "./TicketsComponent/Ticket/NewTicketDetails";
 
 function App() {
   return (
@@ -64,7 +65,10 @@ function App() {
         />
       </Routes>
       <Routes>
-        <Route path="/addnew-ticket" element={<AddNewTicket />} />
+        <Route path="/addnew-ticket" element={<AddNewTicket/>} />
+      </Routes>
+      <Routes>
+        <Route path="/tickets/newticketdetails" element={<NewTicketDetails/>} />
       </Routes>
     </Router>
   );

@@ -260,7 +260,7 @@ const AssignedToMe = () => {
         rowSelection={{
           type: "checkbox",
         }}
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 20 }}
         className={styles.table}
       />
     </div>

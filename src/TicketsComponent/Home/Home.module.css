@@ -4,16 +4,17 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
+  height: 150vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align items to the left */
   padding: 10px;
   color: #333;
   font-family: "Arial", sans-serif;
+  overflow: hidden;
 }
 
-/* Header section for logo */
+/* Header section for logo */s
 .header {
   display: flex;
   justify-content: flex-start; /* Align logo to the left */
@@ -117,9 +118,10 @@
 /* Iframe */
 .iframe {
   width: 100%;
-  height: calc(100vh - 250px);
+  height: 110vh;
   border: none;
   margin-top: 10px;
+   overflow: hidden;
 }
 
 /* Responsive Design */
