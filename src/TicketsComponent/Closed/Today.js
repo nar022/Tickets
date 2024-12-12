@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Input, Button } from "antd";
 import {
   EditOutlined,
@@ -10,169 +10,62 @@ import {
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import styles from "./Today.module.css";
 
-const dataSource = [
-  {
-    key: "1",
-    ticket: "TCKT-001",
-    dateClosed: "2024-11-01",
-    subject: "Login Issue",
-    from: "John Doe",
-    closedBy: "Admin A",
-  },
-  {
-    key: "2",
-    ticket: "TCKT-002",
-    dateClosed: "2024-11-01",
-    subject: "Password Reset",
-    from: "Jane Smith",
-    closedBy: "Admin B",
-  },
-  {
-    key: "3",
-    ticket: "TCKT-003",
-    dateClosed: "2024-11-01",
-    subject: "System Outage",
-    from: "Michael Brown",
-    closedBy: "Admin C",
-  },
-  {
-    key: "4",
-    ticket: "TCKT-004",
-    dateClosed: "2024-11-01",
-    subject: "Account Lockout",
-    from: "Emily Davis",
-    closedBy: "Admin D",
-  },
-  {
-    key: "5",
-    ticket: "TCKT-005",
-    dateClosed: "2024-11-01",
-    subject: "Email Not Received",
-    from: "Chris Johnson",
-    closedBy: "Admin E",
-  },
-  {
-    key: "6",
-    ticket: "TCKT-006",
-    dateClosed: "2024-11-01",
-    subject: "Network Error",
-    from: "Sarah White",
-    closedBy: "Admin F",
-  },
-  {
-    key: "7",
-    ticket: "TCKT-007",
-    dateClosed: "2024-11-01",
-    subject: "Access Request",
-    from: "William Martinez",
-    closedBy: "Admin G",
-  },
-  {
-    key: "8",
-    ticket: "TCKT-008",
-    dateClosed: "2024-11-01",
-    subject: "Page Not Loading",
-    from: "Jessica Wilson",
-    closedBy: "Admin H",
-  },
-  {
-    key: "9",
-    ticket: "TCKT-009",
-    dateClosed: "2024-11-01",
-    subject: "Server Downtime",
-    from: "David Thomas",
-    closedBy: "Admin I",
-  },
-  {
-    key: "10",
-    ticket: "TCKT-010",
-    dateClosed: "2024-11-01",
-    subject: "VPN Connectivity",
-    from: "Olivia Taylor",
-    closedBy: "Admin J",
-  },
-  {
-    key: "11",
-    ticket: "TCKT-011",
-    dateClosed: "2024-11-01",
-    subject: "Slow Performance",
-    from: "Daniel Harris",
-    closedBy: "Admin K",
-  },
-  {
-    key: "12",
-    ticket: "TCKT-012",
-    dateClosed: "2024-11-01",
-    subject: "File Upload Error",
-    from: "Megan Lee",
-    closedBy: "Admin L",
-  },
-  {
-    key: "13",
-    ticket: "TCKT-013",
-    dateClosed: "2024-11-01",
-    subject: "Data Retrieval Issue",
-    from: "Paul King",
-    closedBy: "Admin M",
-  },
-  {
-    key: "14",
-    ticket: "TCKT-014",
-    dateClosed: "2024-11-01",
-    subject: "Form Submission Error",
-    from: "Anna Lewis",
-    closedBy: "Admin N",
-  },
-  {
-    key: "15",
-    ticket: "TCKT-015",
-    dateClosed: "2024-11-01",
-    subject: "User Permissions",
-    from: "James Scott",
-    closedBy: "Admin O",
-  },
-];
-
 const columns = [
   {
     title: "Ticket",
-    dataIndex: "ticket",
-    key: "ticket",
-    sorter: (a, b) => a.ticket.localeCompare(b.ticket),
+    dataIndex: "ticketNo",
+    key: "ticketNo",
+    sorter: (a, b) => a.ticketNo.localeCompare(b.ticketNo),
   },
   {
     title: "Date Closed",
-    dataIndex: "dateClosed",
-    key: "dateClosed",
-    sorter: (a, b) => new Date(a.dateClosed) - new Date(b.dateClosed),
+    dataIndex: "posted",
+    key: "posted",
+    sorter: (a, b) => new Date(a.posted) - new Date(b.posted),
     render: (text) => <span>{new Date(text).toLocaleDateString()}</span>, // Format the date
   },
   {
     title: "Subject",
-    dataIndex: "subject",
-    key: "subject",
+    dataIndex: "title",
+    key: "title",
     render: (text, record) => (
       <Link to={`/today-details/${record.key}`}>{text}</Link> // Create a link to TodayDetails.js with the ticket key
     ),
   },
-  { title: "From", dataIndex: "from", key: "from" },
-  { title: "Closed By", dataIndex: "closedBy", key: "closedBy" },
+  { title: "From", dataIndex: "email", key: "email" },
+  { title: "Closed By", dataIndex: "assignee", key: "assignee" },
 ];
 
 const Today = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataSourceNew, setdataSourceNew] = useState([]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
+  useEffect(() => {
+    getTickets();
+  }, []);
 
-  const filteredData = dataSource.filter(
-    (ticket) =>
-      ticket.ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.closedBy.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  async function getTickets() {
+    try {
+      let getTicket = await fetch(
+        "https://localhost:7085/api/tickets/status/closed?" +
+          new URLSearchParams({ status: "CLOSED" }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      let respJson = await getTicket.json();
+      console.log(setdataSourceNew);
+      setdataSourceNew(respJson.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -233,7 +126,7 @@ const Today = () => {
       </div>
 
       <Table
-        dataSource={filteredData}
+        dataSource={dataSourceNew}
         columns={columns}
         rowSelection={{
           type: "checkbox",

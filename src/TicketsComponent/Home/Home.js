@@ -31,20 +31,52 @@ const Home = () => {
       { key: "Overdue", label: "Overdue", path: "/tickets/overdue" },
     ],
     myTickets: [
-      { key: "AssignedToMe", label: "Assigned To Me", path: "/tickets/assignedtome" },
-      { key: "AssignedToTeam", label: "Assigned To Team", path: "/tickets/assignedtoteam" },
+      {
+        key: "AssignedToMe",
+        label: "Assigned To Me",
+        path: "/tickets/assignedtome",
+      },
+      {
+        key: "AssignedToTeam",
+        label: "Assigned To Team",
+        path: "/tickets/assignedtoteam",
+      },
       {
         key: "AddPersonQueue",
-        label: <><PlusOutlined /> Add Personal Queue</>,
+        label: (
+          <>
+            <PlusOutlined /> Add Personal Queue
+          </>
+        ),
       },
     ],
     closed: [
       { key: "today", label: "Today", path: "/tickets/closed/today" },
-      { key: "yesterday", label: "Yesterday", path: "/tickets/closed/yesterday" },
-      { key: "this-week", label: "This Week", path: "/tickets/closed/this-week" },
-      { key: "this-month", label: "This Month", path: "/tickets/closed/this-month" },
-      { key: "this-quarter", label: "This Quarter", path: "/tickets/closed/this-quarter" },
-      { key: "this-year", label: "This Year", path: "/tickets/closed/this-year" },
+      {
+        key: "yesterday",
+        label: "Yesterday",
+        path: "/tickets/closed/yesterday",
+      },
+      {
+        key: "this-week",
+        label: "This Week",
+        path: "/tickets/closed/this-week",
+      },
+      {
+        key: "this-month",
+        label: "This Month",
+        path: "/tickets/closed/this-month",
+      },
+      {
+        key: "this-quarter",
+        label: "This Quarter",
+        path: "/tickets/closed/this-quarter",
+      },
+      {
+        key: "this-year",
+        label: "This Year",
+        path: "/tickets/closed/this-year",
+      },
     ],
   };
 
@@ -53,7 +85,9 @@ const Home = () => {
       {items.map(({ key, label, path }) => (
         <Menu.Item
           key={key}
-          onClick={() => (path ? setIframeSrc(path) : toggleModal(modalKey, true))}
+          onClick={() =>
+            path ? setIframeSrc(path) : toggleModal(modalKey, true)
+          }
         >
           {label}
         </Menu.Item>
@@ -63,9 +97,11 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <img src={logo} alt="Logo" className={styles.logo} />
-      </header>
+      <div>
+        <header className={styles.header}>
+          <img src={logo} alt="Logo" className={styles.logo} />
+        </header>
+      </div>
 
       <Tabs
         defaultActiveKey="1"
@@ -96,20 +132,43 @@ const Home = () => {
             </SubMenu>
 
             <Menu.Item key="Closed">
-              <Dropdown overlay={createMenu(menuItems.closed)} trigger={["click"]}>
+              <Dropdown
+                overlay={createMenu(menuItems.closed)}
+                trigger={["click"]}
+              >
                 <Button type="link">Closed</Button>
               </Dropdown>
             </Menu.Item>
 
             <Menu.Item key="Search">
-              <Dropdown overlay={createMenu([{ key: "AdvancedSearch", label: "Advanced Search" }], "advancedSearch")} trigger={["click"]}>
+              <Dropdown
+                overlay={createMenu(
+                  [{ key: "AdvancedSearch", label: "Advanced Search" }],
+                  "advancedSearch"
+                )}
+                trigger={["click"]}
+              >
                 <Button type="link">Search</Button>
               </Dropdown>
             </Menu.Item>
 
-
             <Menu.Item key="NewTicket">
-              <Dropdown overlay={createMenu([{ key: "AddNewTicket", label: <><PlusOutlined /> Add New Ticket</> }], "newTicket")} trigger={["click"]}>
+              <Dropdown
+                overlay={createMenu(
+                  [
+                    {
+                      key: "AddNewTicket",
+                      label: (
+                        <>
+                          <PlusOutlined /> Add New Ticket
+                        </>
+                      ),
+                    },
+                  ],
+                  "newTicket"
+                )}
+                trigger={["click"]}
+              >
                 <Button type="link">New Ticket</Button>
               </Dropdown>
             </Menu.Item>
@@ -128,12 +187,16 @@ const Home = () => {
             width={800}
             className={styles.modal}
           >
-            <AddNewTicket
-              onClose={() => toggleModal("newTicket", false)}
-            />
+            <AddNewTicket onClose={() => toggleModal("newTicket", false)} />
           </Modal>
 
-          {iframeSrc && <iframe src={iframeSrc} title="New Ticket Details" className={styles.iframe} />}
+          {iframeSrc && (
+            <iframe
+              src={iframeSrc}
+              title="New Ticket Details"
+              className={styles.iframe}
+            />
+          )}
         </TabPane>
         <TabPane tab="Knowledgebase" key="5" />
       </Tabs>

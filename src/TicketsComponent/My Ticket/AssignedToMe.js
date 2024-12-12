@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Input, Button } from "antd";
 import {
   EditOutlined,
@@ -10,191 +10,72 @@ import {
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import styles from "./AssignedToMe.module.css";
 
-const dataSource = [
-  {
-    key: "1",
-    ticket: "TCKT-001",
-    lastUpdated: "2024-11-01",
-    subject: "Login Issue",
-    from: "John Doe",
-    priority: "High",
-    assignedTo: "Admin A",
-  },
-  {
-    key: "2",
-    ticket: "TCKT-002",
-    lastUpdated: "2024-11-01",
-    subject: "Password Reset",
-    from: "Jane Smith",
-    priority: "Medium",
-    assignedTo: "Admin B",
-  },
-  {
-    key: "3",
-    ticket: "TCKT-003",
-    lastUpdated: "2024-11-01",
-    subject: "System Outage",
-    from: "Michael Brown",
-    priority: "Critical",
-    assignedTo: "Admin C",
-  },
-  {
-    key: "4",
-    ticket: "TCKT-004",
-    lastUpdated: "2024-11-01",
-    subject: "Account Lockout",
-    from: "Emily Davis",
-    priority: "Low",
-    assignedTo: "Admin D",
-  },
-  {
-    key: "5",
-    ticket: "TCKT-005",
-    lastUpdated: "2024-11-01",
-    subject: "Email Not Received",
-    from: "Chris Johnson",
-    priority: "Medium",
-    assignedTo: "Admin E",
-  },
-  {
-    key: "6",
-    ticket: "TCKT-006",
-    lastUpdated: "2024-11-02",
-    subject: "File Upload Error",
-    from: "Alice Green",
-    priority: "High",
-    assignedTo: "Admin F",
-  },
-  {
-    key: "7",
-    ticket: "TCKT-007",
-    lastUpdated: "2024-11-02",
-    subject: "Network Issue",
-    from: "Bob White",
-    priority: "Medium",
-    assignedTo: "Admin G",
-  },
-  {
-    key: "8",
-    ticket: "TCKT-008",
-    lastUpdated: "2024-11-03",
-    subject: "Browser Compatibility",
-    from: "Clara Adams",
-    priority: "Low",
-    assignedTo: "Admin H",
-  },
-  {
-    key: "9",
-    ticket: "TCKT-009",
-    lastUpdated: "2024-11-03",
-    subject: "Server Downtime",
-    from: "David Clark",
-    priority: "Critical",
-    assignedTo: "Admin I",
-  },
-  {
-    key: "10",
-    ticket: "TCKT-010",
-    lastUpdated: "2024-11-04",
-    subject: "API Timeout",
-    from: "Eva Harris",
-    priority: "Medium",
-    assignedTo: "Admin J",
-  },
-  {
-    key: "11",
-    ticket: "TCKT-011",
-    lastUpdated: "2024-11-05",
-    subject: "Authentication Error",
-    from: "Frank King",
-    priority: "High",
-    assignedTo: "Admin K",
-  },
-  {
-    key: "12",
-    ticket: "TCKT-012",
-    lastUpdated: "2024-11-05",
-    subject: "Data Loss",
-    from: "Grace Lee",
-    priority: "Critical",
-    assignedTo: "Admin L",
-  },
-  {
-    key: "13",
-    ticket: "TCKT-013",
-    lastUpdated: "2024-11-06",
-    subject: "Slow Loading",
-    from: "Harry Young",
-    priority: "Low",
-    assignedTo: "Admin M",
-  },
-  {
-    key: "14",
-    ticket: "TCKT-014",
-    lastUpdated: "2024-11-06",
-    subject: "Permission Denied",
-    from: "Ivy Martinez",
-    priority: "Medium",
-    assignedTo: "Admin N",
-  },
-  {
-    key: "15",
-    ticket: "TCKT-015",
-    lastUpdated: "2024-11-07",
-    subject: "Data Sync Error",
-    from: "Jack Scott",
-    priority: "High",
-    assignedTo: "Admin O",
-  },
-];
-
 const columns = [
   {
     title: "Ticket",
-    dataIndex: "ticket",
-    key: "ticket",
-    sorter: (a, b) => a.ticket.localeCompare(b.ticket),
+    dataIndex: "ticketNo",
+    key: "ticketNo",
+    sorter: (a, b) => a.ticketNo.localeCompare(b.ticketNo),
   },
   {
     title: "Last Updated",
-    dataIndex: "lastUpdated",
-    key: "lastUpdated",
-    sorter: (a, b) => new Date(a.lastUpdated) - new Date(b.lastUpdated),
+    dataIndex: "posted",
+    key: "posted",
+    sorter: (a, b) => new Date(a.posted) - new Date(b.posted),
     render: (text) => <span>{new Date(text).toLocaleDateString()}</span>, // Format the date
   },
   {
     title: "Subject",
-    dataIndex: "subject",
-    key: "subject",
+    dataIndex: "title",
+    key: "title",
     render: (text, record) => (
       <Link to={`/assignedtome-details/${record.key}`}>{text}</Link>
     ),
   },
-  { title: "From", dataIndex: "from", key: "from" },
+  { title: "From", dataIndex: "email", key: "email" },
   {
     title: "Priority",
-    dataIndex: "priority",
-    key: "priority",
-    sorter: (a, b) => a.priority.localeCompare(b.priority),
+    dataIndex: "slaPlan",
+    key: "slaPlan",
+    sorter: (a, b) => a.slaPlan.localeCompare(b.slaPlan),
   },
-  { title: "Assigned To", dataIndex: "assignedTo", key: "assignedTo" },
+  { title: "Assigned To", dataIndex: "assignee", key: "assignee" },
 ];
 
 const AssignedToMe = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataSourceNew, setdataSourceNew] = useState([]);
+  //const [filteredData, setFilteredData] = useState([]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
-  const filteredData = dataSource.filter(
-    (ticket) =>
-      ticket.ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    getTickets();
+  }, []);
+
+  async function getTickets() {
+    try {
+      let getTicket = await fetch(
+        "https://localhost:7085/api/tickets/status/open?" +
+          new URLSearchParams({ status: "MY TICKETS" }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      let respJson = await getTicket.json();
+      const filteredTickets = respJson.data.filter(
+        (ticket) => ticket.assignee === "John Doe"
+      );
+      setdataSourceNew(filteredTickets);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -255,7 +136,7 @@ const AssignedToMe = () => {
       </div>
 
       <Table
-        dataSource={filteredData}
+        dataSource={dataSourceNew}
         columns={columns}
         rowSelection={{
           type: "checkbox",

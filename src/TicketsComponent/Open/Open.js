@@ -51,17 +51,21 @@ const Open = () => {
   };
 
   useEffect(() => {
-      getTickets();
+    getTickets();
   }, []);
 
   async function getTickets() {
     try {
-      let getTicket = await fetch('https://localhost:7085/api/tickets/status/open?' + new URLSearchParams({ status: 'OPEN' }), {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
+      let getTicket = await fetch(
+        "https://localhost:7085/api/tickets/status/open?" +
+          new URLSearchParams({ status: "OPEN" }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       let respJson = await getTicket.json();
       setdataSourceNew(respJson.data);
     } catch (error) {

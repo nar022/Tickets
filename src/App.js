@@ -65,10 +65,13 @@ function App() {
         />
       </Routes>
       <Routes>
-        <Route path="/addnew-ticket" element={<AddNewTicket/>} />
+        <Route path="/addnew-ticket" element={<AddNewTicket />} />
       </Routes>
       <Routes>
-        <Route path="/tickets/newticketdetails" element={<NewTicketDetails/>} />
+        <Route
+          path="/tickets/newticketdetails"
+          element={<NewTicketDetails />}
+        />
       </Routes>
     </Router>
   );

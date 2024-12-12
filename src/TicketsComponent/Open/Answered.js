@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Input, Button } from "antd";
 import {
   EditOutlined,
@@ -9,144 +9,6 @@ import {
 } from "@ant-design/icons"; // Import Ant Design icons
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import styles from "./Answered.module.css";
-
-const dataSource = [
-  {
-    key: "1",
-    ticket: "TCKT-001",
-    lastUpdated: "2024-11-01",
-    subject: "Login Issue",
-    from: "John Doe",
-    priority: "High",
-    assignedTo: "Admin A",
-  },
-  {
-    key: "2",
-    ticket: "TCKT-002",
-    lastUpdated: "2024-11-01",
-    subject: "Password Reset",
-    from: "Jane Smith",
-    priority: "Medium",
-    assignedTo: "Admin B",
-  },
-  {
-    key: "3",
-    ticket: "TCKT-003",
-    lastUpdated: "2024-11-01",
-    subject: "System Outage",
-    from: "Michael Brown",
-    priority: "Critical",
-    assignedTo: "Admin C",
-  },
-  {
-    key: "4",
-    ticket: "TCKT-004",
-    lastUpdated: "2024-11-01",
-    subject: "Account Lockout",
-    from: "Emily Davis",
-    priority: "Low",
-    assignedTo: "Admin D",
-  },
-  {
-    key: "5",
-    ticket: "TCKT-005",
-    lastUpdated: "2024-11-01",
-    subject: "Email Not Received",
-    from: "Chris Johnson",
-    priority: "Medium",
-    assignedTo: "Admin E",
-  },
-  {
-    key: "6",
-    ticket: "TCKT-006",
-    lastUpdated: "2024-11-01",
-    subject: "Network Error",
-    from: "Sarah White",
-    priority: "High",
-    assignedTo: "Admin F",
-  },
-  {
-    key: "7",
-    ticket: "TCKT-007",
-    lastUpdated: "2024-11-01",
-    subject: "Access Request",
-    from: "William Martinez",
-    priority: "Low",
-    assignedTo: "Admin G",
-  },
-  {
-    key: "8",
-    ticket: "TCKT-008",
-    lastUpdated: "2024-11-01",
-    subject: "Page Not Loading",
-    from: "Jessica Wilson",
-    priority: "Medium",
-    assignedTo: "Admin H",
-  },
-  {
-    key: "9",
-    ticket: "TCKT-009",
-    lastUpdated: "2024-11-01",
-    subject: "Server Downtime",
-    from: "David Thomas",
-    priority: "Critical",
-    assignedTo: "Admin I",
-  },
-  {
-    key: "10",
-    ticket: "TCKT-010",
-    lastUpdated: "2024-11-01",
-    subject: "VPN Connectivity",
-    from: "Olivia Taylor",
-    priority: "High",
-    assignedTo: "Admin J",
-  },
-  {
-    key: "11",
-    ticket: "TCKT-011",
-    lastUpdated: "2024-11-01",
-    subject: "Slow Performance",
-    from: "Daniel Harris",
-    priority: "Medium",
-    assignedTo: "Admin K",
-  },
-  {
-    key: "12",
-    ticket: "TCKT-012",
-    lastUpdated: "2024-11-01",
-    subject: "File Upload Error",
-    from: "Megan Lee",
-    priority: "Low",
-    assignedTo: "Admin L",
-  },
-  {
-    key: "13",
-    ticket: "TCKT-013",
-    lastUpdated: "2024-11-01",
-    subject: "Data Retrieval Issue",
-    from: "Paul King",
-    priority: "High",
-    assignedTo: "Admin M",
-  },
-  {
-    key: "14",
-    ticket: "TCKT-014",
-    lastUpdated: "2024-11-01",
-    subject: "Form Submission Error",
-    from: "Anna Lewis",
-    priority: "Critical",
-    assignedTo: "Admin N",
-  },
-  {
-    key: "15",
-    ticket: "TCKT-015",
-    lastUpdated: "2024-11-01",
-    subject: "User Permissions",
-    from: "James Scott",
-    priority: "Medium",
-    assignedTo: "Admin O",
-  },
-];
 
 const columns = [
   {
@@ -177,19 +39,34 @@ const columns = [
 
 const Answered = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataSourceNew, setdataSourceNew] = useState([]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
-  const filteredData = dataSource.filter(
-    (ticket) =>
-      ticket.ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.priority.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    getTickets();
+  }, []);
+
+  async function getTickets() {
+    try {
+      let getTicket = await fetch(
+        "https://localhost:7085/api/tickets/status/answered?" +
+          new URLSearchParams({ status: "ANSWERED" }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      let respJson = await getTicket.json();
+      setdataSourceNew(respJson.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -250,7 +127,7 @@ const Answered = () => {
       </div>
 
       <Table
-        dataSource={filteredData}
+        dataSource={dataSourceNew}
         columns={columns}
         rowSelection={{
           type: "checkbox",
