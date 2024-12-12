@@ -118,6 +118,10 @@
   width: 100%;
 }
 
+.input {
+  width: 100%;
+}
+
 /* Success message styling */
 .ant-message-success {
   background-color: #e8f5e9; /* Light green background */
